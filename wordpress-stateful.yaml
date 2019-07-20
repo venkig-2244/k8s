@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+    name: wordpress-stateful 
+    labels:
+        app: wordpress1 
+spec:
+    serviceName: wordpress1-svc 
+    replicas: 2
+    selector:
+        matchLabels:
+            app: wordpress1 
+    template:
+        spec:
+            containers:
+            - name: wordpress1
+              image: buddy/wordpress:latest
+              ports:
+              - containerPort: 80
+        metadata:
+            labels:
+                app: wordpress1
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: wordpress1-svc 
+    labels:
+      app: wordpress1
+spec:
+    ports:
+        - port: 80
+          nodePort: 31002
+          protocol: TCP
+    selector:
+        app: wordpress1
+    type: NodePort

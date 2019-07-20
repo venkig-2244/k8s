@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
     - image: nginx:alpine
-      name: web-container
+      name: nginx-pod
       imagePullPolicy: Always
 
       

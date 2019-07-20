@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: wordpress-deploy 
+    labels:
+        app: wordpress 
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: wordpress 
+    template:
+        spec:
+            containers:
+            - name: wordpress
+              image: buddy/wordpress:latest
+              ports:
+              - containerPort: 80
+        metadata:
+            labels:
+                app: wordpress
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: wordpress-svc 
+    labels:
+      app: wordpress
+spec:
+    ports:
+        - port: 80
+          nodePort: 31001
+          protocol: TCP
+    selector:
+        app: wordpress
+    type: NodePort
