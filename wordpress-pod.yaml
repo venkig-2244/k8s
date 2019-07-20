@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: wordpress
+    labels:
+      app: wordpress
+spec:
+    containers:
+        - image: buddy/wordpress:latest
+          name: wordpress
+          imagePullPolicy: Always
+          Ports: 
+              - containerPort: 80
+                protocol: TCP
